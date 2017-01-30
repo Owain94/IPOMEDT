@@ -42,8 +42,6 @@ class UltraSonic:
         """
         distance = self.measure()
 
-        print(distance)
-
         return bool(distance < local_how_near)
 
     def measure(self) -> float:
