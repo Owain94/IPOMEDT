@@ -9,21 +9,21 @@ class Constants(object):
         :param args: args
         :param kwargs: kwargs
         """
-        self._d = dict(*args, **kwargs)
+        self._dict = dict(*args, **kwargs)
 
     def __iter__(self) -> iter:
         """
         Implementeer iteraties voor de dictionary met attributen
         :return: iteratie van de dictionary als iter
         """
-        return iter(self._d)
+        return iter(self._dict)
 
     def __len__(self) -> int:
         """
         Geeft het aantal attributen terug
         :return: het aantal attributen als int
         """
-        return len(self._d)
+        return len(self._dict)
 
     def __getattr__(self, name: str) -> any:
         """
@@ -31,7 +31,7 @@ class Constants(object):
         :param name: Attribuut naam als string
         :return: Attribuut waarde als *
         """
-        return self._d[name]
+        return self._dict[name]
 
     def __setattr__(self, name: str, value: any) -> None:
         """

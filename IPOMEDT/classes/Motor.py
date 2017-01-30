@@ -24,15 +24,15 @@ class Motor:
         # (gedefinieerd als constante)
         self.const = Constants(sequence=['1000', '0100', '0010', '0001'])
 
-        self.__coil_A_1_pin = input_pins[0]
-        self.__coil_A_2_pin = input_pins[1]
-        self.__coil_B_1_pin = input_pins[2]
-        self.__coil_B_2_pin = input_pins[3]
+        self.coil_a_1_pin = input_pins[0]
+        self.coil_a_2_pin = input_pins[1]
+        self.coil_b_1_pin = input_pins[2]
+        self.coil_b_2_pin = input_pins[3]
 
-        GPIO.setup(self.__coil_A_1_pin, GPIO.OUT)
-        GPIO.setup(self.__coil_A_2_pin, GPIO.OUT)
-        GPIO.setup(self.__coil_B_1_pin, GPIO.OUT)
-        GPIO.setup(self.__coil_B_2_pin, GPIO.OUT)
+        GPIO.setup(self.coil_a_1_pin, GPIO.OUT)
+        GPIO.setup(self.coil_a_2_pin, GPIO.OUT)
+        GPIO.setup(self.coil_b_1_pin, GPIO.OUT)
+        GPIO.setup(self.coil_b_2_pin, GPIO.OUT)
 
         self.count = 0
 
@@ -45,10 +45,10 @@ class Motor:
         :param step: Het aantal stappen als string
                      (0100 = false, true, false, false)
         """
-        GPIO.output(self.__coil_A_1_pin, int(step[0]) == 1)
-        GPIO.output(self.__coil_A_2_pin, int(step[1]) == 1)
-        GPIO.output(self.__coil_B_1_pin, int(step[2]) == 1)
-        GPIO.output(self.__coil_B_2_pin, int(step[3]) == 1)
+        GPIO.output(self.coil_a_1_pin, int(step[0]) == 1)
+        GPIO.output(self.coil_a_2_pin, int(step[1]) == 1)
+        GPIO.output(self.coil_b_1_pin, int(step[2]) == 1)
+        GPIO.output(self.coil_b_2_pin, int(step[3]) == 1)
 
     def forward(self) -> None:
         """
@@ -84,10 +84,10 @@ class Motor:
         """
         Haal de stroom van alle GPIO pinnen die worden gebruikt
         """
-        GPIO.output(self.__coil_A_1_pin, False)
-        GPIO.output(self.__coil_A_2_pin, False)
-        GPIO.output(self.__coil_B_1_pin, False)
-        GPIO.output(self.__coil_B_2_pin, False)
+        GPIO.output(self.coil_a_1_pin, False)
+        GPIO.output(self.coil_a_2_pin, False)
+        GPIO.output(self.coil_b_1_pin, False)
+        GPIO.output(self.coil_b_2_pin, False)
 
 
 def main() -> None:
