@@ -1,11 +1,3 @@
-/**
- * Created by Zowie on 26-01-16.
- */
-
-document.getElementById("shutdown").addEventListener("click", shutDown);
-document.getElementById("reboot").addEventListener("click", reboot);
-document.getElementById("start").addEventListener("click", start);
-
 function shutDown() {
     swal({
         title: "Are you sure you want to shutdown?",
@@ -79,5 +71,9 @@ function setData() {
 }
 
 setInterval(function() {
-    setData()
+    setData();
 }, 1000);
+
+document.getElementById("shutdown").addEventListener("click", shutDown);
+document.getElementById("reboot").addEventListener("click", reboot);
+document.getElementById("start").addEventListener("click", start);
