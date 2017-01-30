@@ -12,7 +12,7 @@ function shutDown() {
     }, function (isConfirm) {
         if (isConfirm) {
             swal("Success!", "The server has been shutdown.", "success");
-            var url = '/shutdown.html';
+            var url = "/shutdown.html";
             var xmlHttp = new XMLHttpRequest();
             xmlHttp.open("GET", url, false);
             xmlHttp.send(null);
