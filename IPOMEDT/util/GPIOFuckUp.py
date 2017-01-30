@@ -28,7 +28,7 @@ class GPIOFuckUp:
             try:
                 GPIO.output(pin, False)
             except:
-                print("Runtime error: GPIOFuckUp")
+                pass
 
 
 def main() -> None:

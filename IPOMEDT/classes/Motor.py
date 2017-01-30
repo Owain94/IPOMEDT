@@ -3,7 +3,7 @@ if __name__ == '__main__':
 
     path.append("..")
 
-from util.Constants import Constants
+from util.GPIOFuckUp import GPIOFuckUp
 import RPi.GPIO as GPIO
 from time import sleep
 
@@ -22,8 +22,6 @@ class Motor:
         """
         # De sequentie die wordt gebruikt om de motor te laten draaien
         # (gedefinieerd als constante)
-        self.const = Constants(sequence=['1000', '0100', '0010', '0001'])
-
         self.coil_a_1_pin = input_pins[0]
         self.coil_a_2_pin = input_pins[1]
         self.coil_b_1_pin = input_pins[2]
@@ -36,7 +34,7 @@ class Motor:
 
         self.count = 0
 
-    def set_step(self, step: str) -> None:
+    def set_step(self, step: list) -> None:
         """
         Als bijvoorbeeld de step variabele '0100' bevat wordt er alleen op de
         tweede pin stroom gezet. Zo draait het motorje elke keer (reeks
@@ -45,42 +43,39 @@ class Motor:
         :param step: Het aantal stappen als string
                      (0100 = false, true, false, false)
         """
-        GPIO.output(self.coil_a_1_pin, int(step[0]) == 1)
-        GPIO.output(self.coil_a_2_pin, int(step[1]) == 1)
-        GPIO.output(self.coil_b_1_pin, int(step[2]) == 1)
-        GPIO.output(self.coil_b_2_pin, int(step[3]) == 1)
+
+        print("Vooruit")
+
+        GPIO.output(self.coil_a_1_pin, step[0])
+        GPIO.output(self.coil_a_2_pin, step[1])
+        GPIO.output(self.coil_b_1_pin, step[2])
+        GPIO.output(self.coil_b_2_pin, step[3])
 
     def forward(self) -> None:
         """
         Laat de motor vooruit draaien
         """
-        [(self.set_step(step), sleep(0.005))
-         for step in reversed(self.const.sequence)]
+        self.set_step([True, False, True, False])
 
     def backward(self) -> None:
         """
         Laat de motor achteruit draaien
         """
-        [(self.set_step(step), sleep(0.005))
-         for step in self.const.sequence]
+        self.set_step([False, True, False, True])
 
     def right(self) -> None:
         """
         Laat de linker motor draaien
         """
-        for step in ['1000', '0100']:
-            self.set_step(step)
-            sleep(0.005)
+        self.set_step([False, False, True, False])
 
     def left(self) -> None:
         """
         Laat de rechter motor draaien
         """
-        for step in ['0010', '0001']:
-            self.set_step(step)
-            sleep(0.005)
+        self.set_step([True, False, False, False])
 
-    def clean(self) -> None:
+    def stop(self) -> None:
         """
         Haal de stroom van alle GPIO pinnen die worden gebruikt
         """
@@ -95,10 +90,33 @@ def main() -> None:
     Code om de klasse te testen, deze code wordt niet uitgevoerd als de
     klasse in een ander bestand wordt geimporteerd!
     """
+    GPIOFuckUp()
+
     GPIO.setmode(GPIO.BCM)
-    motor = Motor([6, 13, 19, 26])
+    GPIO.setwarnings(False)
+
+    motor = Motor([10, 9, 8, 7])
+
     motor.forward()
+    sleep(1)
+    motor.stop()
+    sleep(1)
+
     motor.backward()
+    sleep(1)
+    motor.stop()
+    sleep(1)
+
+    motor.left()
+    sleep(1)
+    motor.stop()
+    sleep(1)
+
+    motor.right()
+    sleep(1)
+    motor.stop()
+    sleep(1)
+
     GPIO.cleanup()
 
 
