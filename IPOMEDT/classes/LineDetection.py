@@ -29,10 +29,7 @@ class LineDetection:
 
         :return: boolean
         """
-        if GPIO.input(self.pin) == 0:
-            return True
-        else:
-            return False
+        return bool(GPIO.input(self.pin) == 0)
 
 
 def main() -> None:
