@@ -20,15 +20,18 @@ class UltraSonic:
         :param input_pins: De GPIO pins waar de ultra sonische sensor op is aan gesloten
                            als lijst
         """
+        self.speedSound = 33100 + (0.6 * 20)
         self.how_near = 15.0
-        self.reverse_time = 0.5
-        self.turn_time = 0.75
 
         self.pin_trigger = input_pins[0]
         self.pin_echo = input_pins[1]
 
         GPIO.setup(self.pin_trigger, GPIO.OUT)
         GPIO.setup(self.pin_echo, GPIO.IN)
+
+        GPIO.output(self.pin_trigger, False)
+
+        sleep(0.1)
 
     def is_near_obstacle(self, local_how_near: float) -> bool:
         """
@@ -38,6 +41,8 @@ class UltraSonic:
         :return: boolean
         """
         distance = self.measure()
+
+        print(distance)
 
         if distance < local_how_near:
             return True
@@ -50,29 +55,22 @@ class UltraSonic:
 
         :return: float afstand tot object
         """
+
         GPIO.output(self.pin_trigger, True)
-
         sleep(0.00001)
-
         GPIO.output(self.pin_trigger, False)
-
-        start_time = time()
-        stop_time = start_time
+        start = time()
+        stop = 0
 
         while GPIO.input(self.pin_echo) == 0:
-            start_time = time()
-            stop_time = start_time
+            start = time()
 
         while GPIO.input(self.pin_echo) == 1:
-            stop_time = time()
+            stop = time()
 
-            if stop_time - start_time >= 0.04:
-                stop_time = start_time
-                break
+        elapsed = stop - start
 
-        distance = ((stop_time - start_time) * 34326) / 2
-
-        return distance
+        return (elapsed * self.speedSound) / 2
 
 
 def main() -> None:
@@ -89,7 +87,6 @@ def main() -> None:
 
     try:
         GPIO.output(ultrasonic.pin_trigger, False)
-        sleep(0.1)
         while True:
             sleep(0.1)
             if ultrasonic.is_near_obstacle(ultrasonic.how_near):
