@@ -17,7 +17,7 @@ class UltraSonic:
         """
         Code die wordt uitgevoerd bij het instantiëren van de klasse
 
-        :param input_pins: De GPIO pins waar de motor op is aan gesloten
+        :param input_pins: De GPIO pins waar de ultra sonische sensor op is aan gesloten
                            als lijst
         """
         self.how_near = 15.0
