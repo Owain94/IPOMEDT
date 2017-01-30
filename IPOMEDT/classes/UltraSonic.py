@@ -67,7 +67,6 @@ class UltraSonic:
             stop_time = time()
 
             if stop_time - start_time >= 0.04:
-                print("Hold on there! You're too close for me to see.")
                 stop_time = start_time
                 break
 
@@ -95,6 +94,8 @@ def main() -> None:
             sleep(0.1)
             if ultrasonic.is_near_obstacle(ultrasonic.how_near):
                 print("STOP")
+            else:
+                print("GO")
     except KeyboardInterrupt:
         GPIO.cleanup()
 
