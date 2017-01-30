@@ -5,7 +5,6 @@ if __name__ == '__main__':
 
 from util.GPIOFuckUp import GPIOFuckUp
 import RPi.GPIO as GPIO
-from time import sleep, time
 
 
 class LineDetection:
