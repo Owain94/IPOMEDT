@@ -46,7 +46,7 @@ def log():
 def main():
     logger.empty_file()
 
-    app.run(host='0.0.0.0', debug=True, threaded=True)
+    app.run(host='0.0.0.0', threaded=True)
 
 if __name__ == '__main__':
     main()
