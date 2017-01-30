@@ -37,7 +37,7 @@ function reboot() {
     }, function (isConfirm) {
         if (isConfirm) {
             swal("Success!", "The server has been rebooted.", "success");
-            var url = '/reboot.html';
+            var url = "/reboot.html";
             var xmlHttp = new XMLHttpRequest();
             xmlHttp.open("GET", url, false);
             xmlHttp.send(null);
@@ -49,7 +49,7 @@ function reboot() {
 }
 
 function start() {
-    var url = '/start.html';
+    var url = "/start.html";
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open("GET", url, false);
     xmlHttp.send(null);
@@ -64,7 +64,7 @@ function setData() {
             dataArray = dataArray.split("\n");
             dataArray = dataArray.reverse();
 
-            $('#consoleText').html(dataArray.join("<br />")).scrollTop($("#consoleText")[0].scrollHeight);
+            $("#consoleText").html(dataArray.join("<br />")).scrollTop($("#consoleText")[0].scrollHeight);
         }
     };
     xhr.send(null);
