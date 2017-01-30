@@ -1,0 +1,13 @@
+.margin-top-100 {
+    margin-top: 100px;
+}
+
+.consoleBackground {
+    min-height: 400px;
+    max-height: 800px;
+    overflow: scroll;
+    background: #080808;
+    color: #ffffff;
+    font-family: "Lucida Console", Monaco, monospace;
+    font-size: 12px;
+}

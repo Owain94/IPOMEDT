@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>IPOMEDT | Owain van Brakel | S1094204</title>
+    <link rel="stylesheet" href="{{ bootstrapcss }}">
+    <link rel="stylesheet" href="{{ cosmo }}">
+    <link rel="stylesheet" href="{{ fontawesome }}">
+    <link rel="stylesheet" href="{{ sweetalertcss }}">
+    <link rel="stylesheet" href="{{ style }}">
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">IPOMEDT | Owain van Brakel | S1094204</a>
+        </div>
+    </div>
+</nav>
+<div class="container margin-top-100">
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-cog"></i> Default</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <button class="btn btn-success btn-block" type="button" id="start">Start
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-server"></i> Power Settings</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <button type="button" class="btn btn-block btn-warning" id="reboot"><i
+                                    class="fa fa-refresh"></i> Reboot
+                            </button>
+                        </div>
+                        <div class="col-xs-6">
+                            <button type="button" class="btn btn-block btn-danger" id="shutdown"><i
+                                    class="fa fa-power-off"></i> Shutdown
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-terminal"></i> Console Logging</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="col-xs-12 consoleBackground" id="consoleText">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script type="text/javascript" src="{{ jquery }}"></script>
+<script type="text/javascript" src="{{ bootstrapjs }}"></script>
+<script type="text/javascript" src="{{ sweetalertjs }}"></script>
+<script type="text/javascript" src="{{ events }}"></script>
+</body>
+</html>
