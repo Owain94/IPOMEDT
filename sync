@@ -171,7 +171,7 @@ function sync() {
   console.log("Sync #" + syncCount + " " + addLeadingZero(date.getHours()) + ":" + addLeadingZero(date.getMinutes()) + ":" + addLeadingZero(date.getSeconds()));
 
   var command = [
-    "/usr/local/bin/rsync",
+    "/usr/bin/rsync",
     "--recursive",
     "--delete-during",
     "--force",
