@@ -27,7 +27,7 @@ class GPIOFuckUp:
             # Probeer de GPIO pin of false te zetten.
             try:
                 GPIO.output(pin, False)
-            except:
+            except RuntimeError:
                 continue
 
 
