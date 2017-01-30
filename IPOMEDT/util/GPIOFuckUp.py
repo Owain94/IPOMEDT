@@ -28,7 +28,7 @@ class GPIOFuckUp:
             try:
                 GPIO.output(pin, False)
             except:
-                pass
+                continue
 
 
 def main() -> None:
