@@ -44,8 +44,6 @@ class Motor:
                      (0100 = false, true, false, false)
         """
 
-        print("Vooruit")
-
         GPIO.output(self.coil_a_1_pin, step[0])
         GPIO.output(self.coil_a_2_pin, step[1])
         GPIO.output(self.coil_b_1_pin, step[2])
