@@ -51,27 +51,41 @@ function reboot() {
 function start() {
     var url = "/start.html";
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", url, false);
+    xmlHttp.open("GET", url, true);
     xmlHttp.send(null);
 }
 
 function headlightsOn() {
     var url = "/headlights_on.html";
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", url, false);
+    xmlHttp.open("GET", url, true);
     xmlHttp.send(null);
 }
 
 function headlightsOff() {
     var url = "/headlights_off.html";
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", url, false);
+    xmlHttp.open("GET", url, true);
+    xmlHttp.send(null);
+}
+
+function sireneOn() {
+    var url = "/sirene_on.html";
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("GET", url, true);
+    xmlHttp.send(null);
+}
+
+function sireneOff() {
+    var url = "/sirene_off.html";
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("GET", url, true);
     xmlHttp.send(null);
 }
 
 function setData() {
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "/log.html", false);
+    xhr.open("GET", "/log.html", true);
     xhr.onload = function (e) {
         if (xhr.readyState === 4) {
             var dataArray = xhr.responseText;
@@ -92,3 +106,5 @@ document.getElementById("reboot").addEventListener("click", reboot);
 document.getElementById("start").addEventListener("click", start);
 document.getElementById("headlights_on").addEventListener("click", headlightsOn);
 document.getElementById("headlights_off").addEventListener("click", headlightsOff);
+document.getElementById("sirene_on").addEventListener("click", sireneOn);
+document.getElementById("sirene_off").addEventListener("click", sireneOff);

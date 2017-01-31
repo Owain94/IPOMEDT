@@ -1,10 +1,19 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, jsonify
+
+import RPi.GPIO as GPIO
+
 from util.Logger import Logger
+from classes.Light import Light
 
 import os
 
 app = Flask(__name__)
 logger = Logger()
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+
+headlights = Light([21, 20])
 
 
 @app.route("/")
@@ -31,25 +40,42 @@ def index():
 @app.route("/shutdown.html")
 def shutdown():
     os.system('echo raspberry | sudo -S poweroff')
+    return jsonify(result=True)
 
 
 @app.route("/reboot.html")
 def reboot():
     os.system('echo raspberry | sudo -S reboot')
+    return jsonify(result=True)
 
 
 @app.route("/headlights_on.html")
 def headlights_on():
     logger.append("Headlights turned on")
-    # handle event
-    pass
+    headlights.turn_on()
+    return jsonify(result=True)
 
 
 @app.route("/headlights_off.html")
 def headlights_off():
     logger.append("Headlights turned off")
-    # handle event
-    pass
+    headlights.turn_off()
+    return jsonify(result=True)
+
+
+@app.route("/sirene_on.html")
+def sirene_on():
+    logger.append("Sirene turned on")
+    headlights.start_sirene()
+    return jsonify(result=True)
+
+
+@app.route("/sirene_off.html")
+def sirene_off():
+    logger.append("Sirene turned off")
+    headlights.stop_sirene()
+    headlights.turn_off()
+    return jsonify(result=True)
 
 
 @app.route("/log.html")
@@ -60,7 +86,7 @@ def log():
 def main():
     logger.empty_file()
 
-    app.run(host='0.0.0.0', threaded=True)
+    app.run(host='0.0.0.0')
 
 if __name__ == '__main__':
     main()
