@@ -8,7 +8,7 @@ import RPi.GPIO as GPIO
 from time import sleep
 
 
-class Motor:
+class MotorPwm:
     """
     Klasse om een motor aan te sturen
     """
@@ -22,71 +22,77 @@ class Motor:
         """
         # De sequentie die wordt gebruikt om de motor te laten draaien
         # (gedefinieerd als constante)
-        self.coil_a_1_pin = input_pins[0]
-        self.coil_a_2_pin = input_pins[1]
-        self.coil_b_1_pin = input_pins[2]
-        self.coil_b_2_pin = input_pins[3]
+        GPIO.setup(input_pins[0], GPIO.OUT)
+        GPIO.setup(input_pins[1], GPIO.OUT)
+        GPIO.setup(input_pins[2], GPIO.OUT)
+        GPIO.setup(input_pins[3], GPIO.OUT)
 
-        GPIO.setup(self.coil_a_1_pin, GPIO.OUT)
-        GPIO.setup(self.coil_a_2_pin, GPIO.OUT)
-        GPIO.setup(self.coil_b_1_pin, GPIO.OUT)
-        GPIO.setup(self.coil_b_2_pin, GPIO.OUT)
+        self.coil_a_1_pin = GPIO.PWM(input_pins[0], 30)
+        self.coil_a_2_pin = GPIO.PWM(input_pins[1], 30)
+        self.coil_b_1_pin = GPIO.PWM(input_pins[2], 30)
+        self.coil_b_2_pin = GPIO.PWM(input_pins[3], 30)
 
-    def set_step(self, step: list) -> None:
+        self.coil_a_1_pin.start(0)
+        self.coil_a_2_pin.start(0)
+        self.coil_b_1_pin.start(0)
+        self.coil_b_2_pin.start(0)
+
+    def set_step(self, step: list, speed: int = 100) -> None:
         """
         Als bijvoorbeeld de step variabele '0100' bevat wordt er alleen op de
         tweede pin stroom gezet. Zo draait het motorje elke keer (reeks
         die meegegeven wordt is: 1000, 0100, 0010, 0001) een stapje verder
 
+        :param speed: Snelheid
         :param step: Het aantal stappen als string
                      (0100 = false, true, false, false)
         """
+        self.coil_a_1_pin.ChangeDutyCycle((0, speed)[step[0]])
+        self.coil_a_2_pin.ChangeDutyCycle((0, speed)[step[1]])
+        self.coil_b_1_pin.ChangeDutyCycle((0, speed)[step[2]])
+        self.coil_b_2_pin.ChangeDutyCycle((0, speed)[step[3]])
 
-        GPIO.output(self.coil_a_1_pin, step[0])
-        GPIO.output(self.coil_a_2_pin, step[1])
-        GPIO.output(self.coil_b_1_pin, step[2])
-        GPIO.output(self.coil_b_2_pin, step[3])
-
-    def forward(self) -> None:
+    def forward(self, speed: int = 100) -> None:
         """
         Laat de motor vooruit draaien
         """
-        self.set_step([True, False, True, False])
+        self.set_step([True, False, True, False], speed)
 
-    def backward(self) -> None:
+    def backward(self, speed: int = 100) -> None:
         """
         Laat de motor achteruit draaien
         """
-        self.set_step([False, True, False, True])
+        self.set_step([False, True, False, True], speed)
 
-    def left_forward(self) -> None:
+    def left_forward(self, speed: int = 100) -> None:
         """
         Laat de linker motor draaien
         """
-        self.set_step([False, False, True, False])
+        self.set_step([False, False, True, False], speed)
 
-    def right_forward(self) -> None:
+    def right_forward(self, speed: int = 100) -> None:
         """
         Laat de rechter motor draaien
         """
-        self.set_step([True, False, False, False])
+        self.set_step([True, False, False, False], speed)
 
-    def left_backward(self) -> None:
+    def left_backward(self, speed: int = 100) -> None:
         """
         Laat de linker motor draaien
         """
-        self.set_step([False, False, False, True])
+        self.set_step([False, False, False, True], speed)
 
-    def right_backward(self) -> None:
+    def right_backward(self, speed: int = 100) -> None:
         """
         Laat de rechter motor draaien
         """
-        self.set_step([False, True, False, False])
+        self.set_step([False, True, False, False], speed)
 
     def stop(self) -> None:
         """
         Haal de stroom van alle GPIO pinnen die worden gebruikt
         """
+        self.set_step([False, False, False, False])
 
 
 def main() -> None:
@@ -99,14 +105,24 @@ def main() -> None:
     GPIO.setmode(GPIO.BCM)
     GPIO.setwarnings(False)
 
-    motor = Motor([10, 9, 8, 7])
+    motor = MotorPwm([10, 9, 8, 7])
 
-    motor.forward()
+    motor.right_forward(100)
     sleep(1)
     motor.stop()
     sleep(1)
 
-    motor.backward()
+    motor.right_backward(100)
+    sleep(1)
+    motor.stop()
+    sleep(1)
+
+    motor.left_forward(100)
+    sleep(1)
+    motor.stop()
+    sleep(1)
+
+    motor.left_backward(100)
     sleep(1)
     motor.stop()
     sleep(1)
