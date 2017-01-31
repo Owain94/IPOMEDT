@@ -38,6 +38,20 @@ def reboot():
     os.system('echo raspberry | sudo -S reboot')
 
 
+@app.route("/headlights_on.html")
+def headlights_on():
+    logger.append("Headlights turned on")
+    # handle event
+    pass
+
+
+@app.route("/headlights_off.html")
+def headlights_off():
+    logger.append("Headlights turned off")
+    # handle event
+    pass
+
+
 @app.route("/log.html")
 def log():
     return logger.read_file()

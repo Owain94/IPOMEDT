@@ -55,6 +55,20 @@ function start() {
     xmlHttp.send(null);
 }
 
+function headlightsOn() {
+    var url = "/headlights_on.html";
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("GET", url, false);
+    xmlHttp.send(null);
+}
+
+function headlightsOff() {
+    var url = "/headlights_off.html";
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("GET", url, false);
+    xmlHttp.send(null);
+}
+
 function setData() {
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "/log.html", false);
@@ -62,7 +76,6 @@ function setData() {
         if (xhr.readyState === 4) {
             var dataArray = xhr.responseText;
             dataArray = dataArray.split("\n");
-            dataArray = dataArray.reverse();
 
             $("#consoleText").html(dataArray.join("<br />")).scrollTop($("#consoleText")[0].scrollHeight);
         }
@@ -77,3 +90,5 @@ setInterval(function() {
 document.getElementById("shutdown").addEventListener("click", shutDown);
 document.getElementById("reboot").addEventListener("click", reboot);
 document.getElementById("start").addEventListener("click", start);
+document.getElementById("headlights_on").addEventListener("click", headlightsOn);
+document.getElementById("headlights_off").addEventListener("click", headlightsOff);
