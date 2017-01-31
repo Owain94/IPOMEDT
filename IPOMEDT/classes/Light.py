@@ -23,6 +23,7 @@ class Light:
         self.right_pin.start(0)
 
         self.thread = None
+        self.running = False
 
     def turn_on_left(self):
         self.dim_left(100)
@@ -55,7 +56,7 @@ class Light:
         self.right_pin.ChangeDutyCycle(percentage)
 
     def siren_loop(self):
-        while True:
+        while self.running:
             self.dim_left(100)
             self.dim_right(100)
             time.sleep(0.05)
@@ -79,10 +80,13 @@ class Light:
     def start_sirene(self):
         self.thread = Thread(target=self.siren_loop)
         self.thread.setDaemon(True)
+        self.running = True
         self.thread.start()
 
     def stop_sirene(self):
+        self.running = False
         self.thread.do_run = False
+        self.thread.join()
 
 
 def main():
