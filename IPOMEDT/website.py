@@ -5,10 +5,13 @@ import RPi.GPIO as GPIO
 from util.Logger import Logger
 from classes.Light import Light
 
+from Runner import Runner
+
 import os
 
 app = Flask(__name__)
 logger = Logger()
+runner = Runner()
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
@@ -46,6 +49,13 @@ def shutdown():
 @app.route("/reboot.html")
 def reboot():
     os.system('echo raspberry | sudo -S reboot')
+    return jsonify(result=True)
+
+
+@app.route("/start.html")
+def start():
+    logger.append("Started the main script")
+    runner.start_runner()
     return jsonify(result=True)
 
 

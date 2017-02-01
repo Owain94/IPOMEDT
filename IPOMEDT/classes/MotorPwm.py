@@ -88,6 +88,12 @@ class MotorPwm:
         """
         self.set_step([False, True, False, False], speed)
 
+    def right_backward_left_forward(self, speed: int = 100) -> None:
+        self.set_step([False, True, True, False], speed)
+
+    def left_backward_right_forward(self, speed: int = 100) -> None:
+        self.set_step([True, False, False, True], speed)
+
     def stop(self) -> None:
         """
         Haal de stroom van alle GPIO pinnen die worden gebruikt
@@ -107,25 +113,9 @@ def main() -> None:
 
     motor = MotorPwm([10, 9, 8, 7])
 
-    motor.right_forward(100)
+    motor.right_forward(10)
     sleep(1)
     motor.stop()
-    sleep(1)
-
-    motor.right_backward(100)
-    sleep(1)
-    motor.stop()
-    sleep(1)
-
-    motor.left_forward(100)
-    sleep(1)
-    motor.stop()
-    sleep(1)
-
-    motor.left_backward(100)
-    sleep(1)
-    motor.stop()
-    sleep(1)
 
     GPIO.cleanup()
 

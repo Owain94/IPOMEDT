@@ -65,7 +65,7 @@ class UltraSonic:
 
         elapsed = stop - start
 
-        return (elapsed * self.speedSound) / 2
+        return round((elapsed * self.speedSound) / 2)
 
 
 def main() -> None:
@@ -88,6 +88,7 @@ def main() -> None:
                 print("STOP")
             else:
                 print("GO")
+
     except KeyboardInterrupt:
         GPIO.cleanup()
 
